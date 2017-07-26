@@ -1,5 +1,5 @@
 - name: Install list of packages
   apt: name={{item}} state=installed
   with_items:
+       - git
        - tree
-
