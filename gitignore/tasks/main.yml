@@ -1,0 +1,15 @@
+- file:
+    dest: "{{checkout_root}}/.gitignore"
+    state: touch
+- lineinfile:
+    line: "{{item}}"
+    path: "{{checkout_root}}/.gitignore"
+    regexp: "{{item}}"
+  with_items:
+    - ansible/site.retry
+    - bin/carton
+    - bin/carton-exec
+    - .carton
+    - tidyall.ERR
+    - .tidyall.d/
+    - .vagrant
