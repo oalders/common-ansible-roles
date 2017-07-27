@@ -1,0 +1,9 @@
+---
+- file:
+    path: '{{checkout_root}}/var/log'
+    state: directory
+  name: Create var/log directory
+- file:
+    path: '{{checkout_root}}/var/pid'
+    state: directory
+  name: Create var/pid directory
