@@ -1,5 +1,8 @@
-- name: Install list of packages
-  apt: name={{item}} state=installed
+---
+- apt: 'name={{item}} state=installed'
+  name: Install list of packages
   with_items:
-       - git
-       - tree
+    - git
+    - tree
+- include_role:
+    name: tersmitten.updatedb
