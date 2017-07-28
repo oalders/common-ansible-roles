@@ -3,6 +3,7 @@
   name: Install list of packages
   with_items:
     - git
+    - lynx
     - tree
 - include_role:
     name: tersmitten.updatedb
