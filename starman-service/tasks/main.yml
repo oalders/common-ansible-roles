@@ -1,0 +1,5 @@
+---
+- name: adds {{ app_id }}.service files
+  template:
+    src: starman-service.j2
+    dest: "/etc/systemd/system/{{ app_id }}.service"

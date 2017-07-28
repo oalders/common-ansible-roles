@@ -1,0 +1,22 @@
+[Unit]
+Description={{app_service_description}}
+Requires=network.target
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+
+{% for key, value in starman_env.items() %}
+Environment="{{key}}={{value}}"
+{% endfor %}
+
+ExecStart={{carton}} exec -- local/bin/starman {{app_path}} --port {{starman_port}} --workers {{starman_workers}} --error-log {{starman_error_log}} --pid {{pid_dir}}/{{app_id}}.pid --daemonize
+KillMode=process
+User={{app_user}}
+Group={{app_user}}
+SyslogIdentifier={{app_id}}
+PIDFile={{pid_dir}}/{{app_id}}.pid
+
+[Install]
+WantedBy=multi-user.target
