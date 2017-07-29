@@ -1,3 +1,17 @@
 ---
-- copy: src=~/dot-files/dzil/profiles/default/skel/tidyall.ini dest="{{checkout_root}}/tidyall.ini"
-- copy: src=~/dot-files/dzil/profiles/default/skel/perltidyrc dest="{{checkout_root}}/perltidyrc"
+- copy: 'src=~/dot-files/dzil/profiles/default/skel/tidyall.ini dest="{{checkout_root}}/tidyall.ini"'
+- copy: 'src=~/dot-files/dzil/profiles/default/skel/perltidyrc dest="{{checkout_root}}/perltidyrc"'
+- name: Maybe copy Git hook
+  register: result
+  stat:
+    path: '{{checkout_root}}/git'
+- copy:
+    dest: '{{checkout_root}}/'
+    src: '~/dot-files/dzil/profiles/default/skel/git'
+  name: Maybe copy git pre-commit hook
+  when: not result.stat.exists
+- args:
+    chdir: '{{checkout_root}}'
+  command: '/bin/bash {{checkout_root}}/git/setup.sh'
+  name: Maybe enable pre-commit hook
+  when: not result.stat.exists
