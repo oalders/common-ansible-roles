@@ -1,0 +1,3 @@
+---
+- copy: src=~/dot-files/dzil/profiles/default/skel/tidyall.ini dest="{{checkout_root}}/tidyall.ini"
+- copy: src=~/dot-files/dzil/profiles/default/skel/perltidyrc dest="{{checkout_root}}/perltidyrc"
