@@ -3,7 +3,9 @@
   name: Install list of packages
   with_items:
     - git
+    - golang
     - lynx
+    - ruby2.3
     - tree
 - include_role:
     name: tersmitten.updatedb

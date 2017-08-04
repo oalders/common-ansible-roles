@@ -1,0 +1,9 @@
+---
+- git: 'repo=ssh://git@github.com/oalders/dot-files.git dest=~/dot-files accept_hostkey=yes recursive=yes track_submodules=yes force=yes'
+  name: check out dot files from github
+- args:
+    chdir: '~/dot-files'
+  command: '/bin/bash install.sh'
+  environment:
+    GOPATH: '{{user_home}}/go'
+  name: Install dot files
