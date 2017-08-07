@@ -1,0 +1,5 @@
+---
+- src: geerlingguy.firewall
+- src: geerlingguy.mysql
+- src: jdauphant.nginx
+- src: jdauphant.ssl-certs
