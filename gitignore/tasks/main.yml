@@ -11,6 +11,7 @@
     .tidyall.d/: '^\.tidyall.d\/$'
     .vagrant: '^\.vagrant$'
     ansible/site.retry: '^ansible\/site\.retry$'
+    ansible/tasks/roles: '^ansible\/tasks\/roles$'
     bin/carton: '^bin\/carton$'
     bin/carton-exec: '^bin\/carton-exec$'
     tidyall.ERR: '^tidyall\.ERR$'
