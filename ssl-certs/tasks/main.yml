@@ -1,3 +1,2 @@
 ---
-- include_role:
-    name: jdauphant.ssl-certs
+- { include: tasks.yml, become: yes }

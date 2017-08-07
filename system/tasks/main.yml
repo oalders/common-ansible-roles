@@ -1,14 +1,2 @@
 ---
-- apt: 'name={{item}} state=installed'
-  name: Install list of packages
-  with_items:
-    - curl
-    - git
-    - golang
-    - lynx
-    - ntp
-    - ruby2.3
-    - tree
-    - unzip
-- include_role:
-    name: tersmitten.updatedb
+- { include: tasks/tasks.yml, become: yes }

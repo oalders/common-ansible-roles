@@ -1,12 +1,2 @@
 ---
-- apt: pkg=libmysqlclient-dev state=installed
-  name: Ensure mysql_config is available for DBD::mysql
-- include_role:
-    name: geerlingguy.mysql
-    vars:
-      mysql_databases: '{{mysql_databases}}'
-      mysql_enabled_on_startup: yes
-      mysql_root_password: '{{mysql_root_password}}'
-      mysql_root_password_update: yes
-      mysql_root_username: root
-      mysql_users: '{{mysql_users}}'
+- { include: tasks/tasks.yml, become: yes }
