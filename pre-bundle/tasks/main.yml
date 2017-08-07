@@ -1,5 +1,7 @@
 ---
 - include_role:
+    name: common-roles/pubkey
+- include_role:
     name: common-roles/apt
 - include_role:
     name: common-roles/firewall
