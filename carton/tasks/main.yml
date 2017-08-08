@@ -23,7 +23,6 @@
   ignore_errors: yes
   name: Install CPAN deps via App::cpm
   with_items: '{{cpanfile}}'
-- command: '{{carton}} install --cpanfile {{item}}'
-  name: 'Maybe update cpanfile snapshot for {{item}}'
-  when: ansible_host == 'development'
+- command: '{{carton}} install --cpanfile {{item}} {{carton_deployment}}'
+  name: 'Maybe update cpanfile snapshot for {{item}} or just run a cleanup on production'
   with_items: '{{cpanfile}}'
