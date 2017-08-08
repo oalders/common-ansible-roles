@@ -17,7 +17,7 @@
   name: Install cpm into carton dir
 - args:
     chdir: '{{ checkout_root }}'
-  command: 'perl -Ilocal/lib/perl5 local/bin/cpm install --workers {{ansible_processor_cores}} --cpanfile {{item}}'
+  command: 'perl -Ilocal/lib/perl5 local/bin/cpm install --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile {{item}}'
   environment:
     USE_CPANFILE_SNAPSHOT: '{{use_cpanfile_snapshot}}'
   ignore_errors: yes
