@@ -1,0 +1,29 @@
+---
+- debug:
+     msg: 'cores: {{ansible_processor_cores}}'
+- name: Copy carton wrapper
+  template: 'src=bin/carton.j2 dest="{{carton}}" mode=0755'
+- name: Copy carton exec wrapper
+  template: 'src=bin/carton-exec.j2 dest="{{carton_exec}}" mode=0755'
+- name: Copy seed-cpanfile
+  template: 'src=seed-cpanfile dest="{{checkout_root}}/seed-cpanfile" mode=0600'
+- apt: 'pkg={{item}} state=installed'
+  name: 'Install {{item}} from apt'
+  with_items:
+    - cpanminus
+- cpanm: name=Carton
+  name: Install Carton
+- command: '{{carton}} install --cpanfile seed-cpanfile {{carton_deployment}}'
+  name: Install cpm into carton dir
+- args:
+    chdir: '{{ checkout_root }}'
+  command: 'perl -Ilocal/lib/perl5 local/bin/cpm install --workers {{ansible_processor_cores}} --cpanfile {{item}}'
+  environment:
+    USE_CPANFILE_SNAPSHOT: '{{use_cpanfile_snapshot}}'
+  ignore_errors: yes
+  name: Install CPAN deps via App::cpm
+  with_items: '{{cpanfile}}'
+- command: '{{carton}} install --cpanfile {{item}}'
+  name: 'Maybe update cpanfile snapshot for {{item}}'
+  when: ansible_host == 'development'
+  with_items: '{{cpanfile}}'
