@@ -1,6 +1,6 @@
 ---
 - debug:
-     msg: 'cores: {{ansible_processor_cores}}'
+    msg: 'cores: {{ansible_processor_cores}}'
 - name: Copy carton wrapper
   template: 'src=bin/carton.j2 dest="{{carton}}" mode=0755'
 - name: Copy carton exec wrapper
