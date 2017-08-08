@@ -1,5 +1,9 @@
 ---
 - include_role:
+    name: common-roles/gitignore
+- include_role:
+    name: common-roles/var
+- include_role:
     name: common-roles/tidyall
 - include_role:
     name: common-roles/dot-files

@@ -9,9 +9,3 @@
     name: common-roles/system
 - include_role:
     name: common-roles/ssl-certs
-- include_role:
-    name: common-roles/git-checkout
-- include_role:
-    name: common-roles/gitignore
-- include_role:
-    name: common-roles/var
