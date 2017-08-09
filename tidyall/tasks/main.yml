@@ -1,6 +1,6 @@
 ---
-- copy: 'src=~/dot-files/dzil/profiles/default/skel/tidyall.ini dest="{{checkout_root}}/tidyall.ini"'
-- copy: 'src=~/dot-files/dzil/profiles/default/skel/perltidyrc dest="{{checkout_root}}/perltidyrc"'
+- copy: 'src=~/dot-files/dzil/profiles/default/skel/tidyall.ini dest="{{checkout_root}}/tidyall.ini" force=no'
+- copy: 'src=~/dot-files/dzil/profiles/default/skel/perltidyrc dest="{{checkout_root}}/perltidyrc" force=no'
 - name: Maybe copy Git hook
   register: result
   stat:
