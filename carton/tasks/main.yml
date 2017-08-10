@@ -22,7 +22,9 @@
     USE_CPANFILE_SNAPSHOT: '{{use_cpanfile_snapshot}}'
   ignore_errors: yes
   name: Install CPAN deps via App::cpm
+  when: ansible_processor_cores > 1
   with_items: '{{cpanfile}}'
 - command: '{{carton}} install --cpanfile {{item}} {{carton_deployment}}'
+  ignore_errors: yes
   name: 'Maybe update cpanfile snapshot for {{item}} or just run a cleanup on production'
   with_items: '{{cpanfile}}'
