@@ -1,4 +1,8 @@
 ---
+- name: Display all variables/facts known for a host
+  debug:
+    var: hostvars[inventory_hostname]
+    verbosity: 4
 - git: 'repo=ssh://git@github.com/oalders/dot-files.git dest=~/dot-files accept_hostkey=yes recursive=yes track_submodules=no force=yes'
   name: check out dot files from github
 - args:
