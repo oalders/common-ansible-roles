@@ -1,9 +1,9 @@
 ---
-- name: Maybe create group
-  group:
+- group:
     name: '{{app_user}}'
     state: present
-- name: Maybe create user {{app_user}} with home dir {{user_home}}
+  name: Maybe create group
+- name: 'Maybe create user {{app_user}} with home dir {{user_home}}'
   user:
     createhome: yes
     group: '{{app_user}}'

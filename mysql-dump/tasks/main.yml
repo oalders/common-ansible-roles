@@ -1,6 +1,6 @@
 ---
-- name: Dump database to /tmp
-  mysql_db:
-    state: dump
+- mysql_db:
     name: '{{item}}'
-    target: /tmp/{{item}}-{{ ansible_date_time.iso8601 }}.sql
+    state: dump
+    target: '/tmp/{{item}}-{{ ansible_date_time.iso8601 }}.sql'
+  name: Dump database to /tmp

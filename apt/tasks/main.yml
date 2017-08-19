@@ -1,2 +1,3 @@
 ---
-- { include: tasks.yml, become: yes }
+- become: yes
+  include: tasks.yml
