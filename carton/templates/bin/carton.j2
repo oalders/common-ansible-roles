@@ -2,5 +2,9 @@
 
 export PERL_CARTON_PATH={{checkout_root}}/local
 
+{% for key, value in carton_env.items() %}
+export {{key}}={{value}}
+{% endfor %}
+
 cd {{checkout_root}}
 /usr/local/bin/carton $@
