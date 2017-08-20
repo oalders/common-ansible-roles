@@ -8,6 +8,7 @@
     - lynx
     - ntp
     - ruby2.3
+    - tig
     - tree
     - unzip
 - include_role:
