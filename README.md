@@ -10,6 +10,7 @@ from, so much the better.
 ```bash
 git submodule add git@github.com:oalders/common-ansible-roles.git ansible/tasks/roles/common-roles
 git commit -m "Add common ansible roles as submodule"
+echo "ansible/tasks/roles" >> .gitignore
 ```
 
 ## Install 3rd party roles from Ansible Galaxy
