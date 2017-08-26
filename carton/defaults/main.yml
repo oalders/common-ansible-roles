@@ -1,3 +1,5 @@
 ---
+carton: 'bin/carton'
+carton_exec: 'bin/carton-exec'
 cpanfile:
   - cpanfile

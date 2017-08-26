@@ -1,17 +1,5 @@
 ---
-- file:
-    dest: '{{checkout_root}}/.gitignore'
-    state: touch
-- lineinfile:
-    line: '{{item.key}}'
-    path: '{{checkout_root}}/.gitignore'
-    regexp: '{{item.value}}'
-  with_dict:
-    .carton: '^\.carton$'
-    .tidyall.d/: '^\.tidyall.d\/$'
-    .vagrant: '^\.vagrant$'
-    ansible/site.retry: '^ansible\/site\.retry$'
-    ansible/tasks/roles: '^ansible\/tasks\/roles$'
-    bin/carton: '^bin\/carton$'
-    bin/carton-exec: '^bin\/carton-exec$'
-    tidyall.ERR: '^tidyall\.ERR$'
+- include: tasks.yml
+  with_dict: '{{apps}}'
+  loop_control:
+    loop_var: app

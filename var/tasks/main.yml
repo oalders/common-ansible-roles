@@ -1,9 +1,5 @@
 ---
-- file:
-    path: '{{log_dir}}'
-    state: directory
-  name: 'Create log directory at {{log_dir}}'
-- file:
-    path: '{{pid_dir}}'
-    state: directory
-  name: 'Create pid directory at {{pid_dir}}'
+- include: tasks.yml
+  with_dict: '{{apps}}'
+  loop_control:
+    loop_var: app

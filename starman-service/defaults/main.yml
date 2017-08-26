@@ -1,0 +1,2 @@
+app_path: app.psgi
+starman_error_log: '{{item.value.log_dir}}/starman-error-log'

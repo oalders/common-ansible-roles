@@ -1,7 +1,7 @@
 ---
-- name: 'adds {{ app_id }}.service files'
+- name: 'adds {{ app.value.app_id }}.service files'
   template:
-    dest: '/etc/systemd/system/{{ app_id }}.service'
+    dest: '/etc/systemd/system/{{ app.value.app_id }}.service'
     src: starman-service.j2
 - name: Reload app
-  systemd: 'name={{app_id}} daemon_reload=yes state=restarted enabled=yes'
+  systemd: 'name={{app.value.app_id}} daemon_reload=yes state=restarted enabled=yes'

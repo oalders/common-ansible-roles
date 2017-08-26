@@ -1,0 +1,9 @@
+---
+- file:
+    path: '{{app.value.log_dir}}'
+    state: directory
+  name: 'Create log directory at {{app.value.log_dir}}'
+- file:
+    path: '{{app.value.pid_dir}}'
+    state: directory
+  name: 'Create pid directory at {{app.value.pid_dir}}'

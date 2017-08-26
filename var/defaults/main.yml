@@ -1,0 +1,3 @@
+log_dir: '{{var_dir}}/log'
+pid_dir: '{{var_dir}}/pid'
+var_dir: '{{checkout_root}}/var'

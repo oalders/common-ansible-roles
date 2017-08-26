@@ -1,0 +1,35 @@
+---
+- debug:
+    msg: 'cores: {{ansible_processor_cores}}'
+- debug:
+    var: 'hostvars[inventory_hostname]'
+    verbosity: 3
+- debug:
+    msg: '{{app|pprint }}'
+- name: Copy carton wrapper
+  template: 'src=bin/carton.j2 dest="{{app.value.checkout_root}}/{{carton}}" mode=0755'
+- name: Copy carton exec wrapper
+  template: 'src=bin/carton-exec.j2 dest="{{app.value.checkout_root}}/{{carton_exec}}" mode=0755'
+- name: Copy seed-cpanfile
+  template: 'src=seed-cpanfile dest="{{app.value.checkout_root}}/seed-cpanfile" mode=0600'
+- apt: 'pkg={{item}} state=installed'
+  name: 'Install {{item}} from apt'
+  with_items:
+    - cpanminus
+- cpanm: name=Carton
+  name: Install Carton
+- command: '{{app.value.checkout_root}}/{{carton}} install --cpanfile seed-cpanfile {{carton_deployment}}'
+  name: Install cpm into carton dir
+- args:
+    chdir: '{{ app.value.checkout_root }}'
+  command: 'perl -Ilocal/lib/perl5 local/bin/cpm install --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile {{item}}'
+  environment:
+    USE_CPANFILE_SNAPSHOT: '{{use_cpanfile_snapshot}}'
+  ignore_errors: yes
+  name: Install CPAN deps via App::cpm
+  when: ansible_processor_cores > 1
+  with_items: "{{app.value.cpanfile}}"
+- command: '{{app.value.checkout_root}}/{{carton}} install --cpanfile {{item}} {{carton_deployment}}'
+  ignore_errors: yes
+  name: 'Maybe update cpanfile snapshot or just run a cleanup on production'
+  with_items: "{{app.value.cpanfile}}"

@@ -1,0 +1,3 @@
+---
+- git: 'repo={{app.value.repo_url}} dest={{app.value.checkout_root}} accept_hostkey=yes recursive=yes track_submodules=no'
+  name: check out git repository
