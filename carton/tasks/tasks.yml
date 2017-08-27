@@ -9,9 +9,7 @@
 - file:
     path: '{{app.value.checkout_root}}/{{carton_bin_dir}}'
     state: directory
-    owner: '{{app_user}}'
-    group: '{{app_user}}'
-    mode: 0644
+    mode: 0744
 - name: Copy carton wrapper
   template: 'src=bin/carton.j2 dest="{{app.value.checkout_root}}/{{carton}}" mode=0755'
 - name: Copy carton exec wrapper
