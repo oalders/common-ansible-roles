@@ -7,13 +7,22 @@
 - debug:
     msg: '{{app|pprint }}'
 - file:
+    mode: 0744
     path: '{{app.value.checkout_root}}/{{carton_bin_dir}}'
     state: directory
-    mode: 0744
 - name: Copy carton wrapper
   template: 'src=bin/carton.j2 dest="{{app.value.checkout_root}}/{{carton}}" mode=0755'
 - name: Copy carton exec wrapper
   template: 'src=bin/carton-exec.j2 dest="{{app.value.checkout_root}}/{{carton_exec}}" mode=0755'
+- args:
+    chdir: '{{app.value.checkout_root}}'
+  command: 'git rm --ignore-unmatch {{item}}'
+  name: git rm ansible managed files which may have been checked in in the past
+  with_items:
+    - ansible/site.retry
+    - bin/carton
+    - bin/carton-exec
+    - seed-cpanfile
 - name: Copy seed-cpanfile
   template: 'src=seed-cpanfile dest="{{app.value.checkout_root}}/seed-cpanfile" mode=0600'
 - apt: 'pkg={{item}} state=installed'
@@ -33,8 +42,8 @@
   ignore_errors: yes
   name: Install CPAN deps via App::cpm
   when: ansible_processor_cores > 1
-  with_items: "{{app.value.cpanfile}}"
+  with_items: '{{app.value.cpanfile}}'
 - command: '{{app.value.checkout_root}}/{{carton}} install --cpanfile {{item}} {{carton_deployment}}'
   ignore_errors: yes
-  name: 'Maybe update cpanfile snapshot or just run a cleanup on production'
-  with_items: "{{app.value.cpanfile}}"
+  name: Maybe update cpanfile snapshot or just run a cleanup on production
+  with_items: '{{app.value.cpanfile}}'
