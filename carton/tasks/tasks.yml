@@ -1,7 +1,5 @@
 ---
 - debug:
-    msg: 'cores: {{ansible_processor_cores}}'
-- debug:
     var: 'hostvars[inventory_hostname]'
     verbosity: 3
 - debug:
@@ -22,9 +20,6 @@
     - ansible/site.retry
     - bin/carton
     - bin/carton-exec
-    - seed-cpanfile
-- name: Copy seed-cpanfile
-  template: 'src=seed-cpanfile dest="{{app.value.checkout_root}}/seed-cpanfile" mode=0600'
 - args:
     chdir: '{{ app.value.checkout_root }}'
   command: 'cpm install --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile {{item}}'
