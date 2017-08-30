@@ -25,18 +25,9 @@
     - seed-cpanfile
 - name: Copy seed-cpanfile
   template: 'src=seed-cpanfile dest="{{app.value.checkout_root}}/seed-cpanfile" mode=0600'
-- apt: 'pkg={{item}} state=installed'
-  become: yes
-  name: 'Install {{item}} from apt'
-  with_items:
-    - cpanminus
-- cpanm: name=Carton
-  name: Install Carton
-- command: '{{app.value.checkout_root}}/{{carton}} install --cpanfile seed-cpanfile {{carton_deployment}}'
-  name: Install cpm into carton dir
 - args:
     chdir: '{{ app.value.checkout_root }}'
-  command: 'perl -Ilocal/lib/perl5 local/bin/cpm install --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile {{item}}'
+  command: 'cpm install --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile {{item}}'
   environment:
     USE_CPANFILE_SNAPSHOT: '{{use_cpanfile_snapshot}}'
   ignore_errors: yes

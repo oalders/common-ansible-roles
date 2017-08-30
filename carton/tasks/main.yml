@@ -1,5 +1,15 @@
 ---
+- apt: 'pkg={{item}} state=installed'
+  become: yes
+  name: 'Install {{item}} from apt'
+  with_items:
+    - cpanminus
+- cpanm:
+    name: '{{item}}'
+  with_items:
+    - Carton
+    - App::cpm
 - include: tasks.yml
-  with_dict: '{{apps}}'
   loop_control:
     loop_var: app
+  with_dict: '{{apps}}'
