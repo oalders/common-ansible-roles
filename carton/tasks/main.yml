@@ -12,11 +12,12 @@
     - Carton
     - App::cpm
 - name: Copy common-cpanfile
-  template: 'src=common-cpanfile dest="/tmp/common-cpanfile" mode=0600'
+  template: src=common-cpanfile dest="/tmp/common-cpanfile" mode=0600
 - args:
-    chdir: '/tmp'
+    chdir: /tmp
   command: 'cpm install --global --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile common-cpanfile'
   environment:
+    PERL5LIB: '{{user_home}}/perl5/lib/perl5'
   ignore_errors: yes
 - include: tasks.yml
   loop_control:
