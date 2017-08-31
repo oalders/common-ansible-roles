@@ -6,6 +6,7 @@
     - git
     - golang
     - lynx
+    - ncdu
     - ntp
     - ruby2.3
     - tig
