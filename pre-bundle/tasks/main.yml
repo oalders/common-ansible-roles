@@ -9,3 +9,13 @@
     name: common-roles/system
 - include_role:
     name: common-roles/ssl-certs
+- name: set server time zone
+  timezone:
+    name: '{{server_time_zone}}'
+  when: server_time_zone is defined
+  register: diff
+- systemd:
+    state: restarted
+    daemon_reload: yes
+    name: cron
+  when: diff.changed
