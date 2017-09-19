@@ -6,7 +6,7 @@ After=network.target
 [Service]
 Type=simple
 Restart=always
-ExecStart={{app.value.checkout_root}}/{{carton | default('bin/carton') }} exec -- local/bin/starman {{app.value.starman.app_path | default('app.psgi') }} --port {{app.value.starman.port}} --workers {{app.value.starman.workers}} --error-log {{app.value.log_dir}}/{{app.value.starman_error_log | default('starman-error-log') }} --pid {{app.value.pid_dir}}/{{app.value.app_id}}.pid --daemonize
+ExecStart={{app.value.checkout_root}}/{{carton_exec | default('bin/carton-exec') }} local/bin/starman {{app.value.starman.app_path | default('app.psgi') }} --port {{app.value.starman.port}} --workers {{app.value.starman.workers}} --error-log {{app.value.log_dir}}/{{app.value.starman_error_log | default('starman-error-log') }} --pid {{app.value.pid_dir}}/{{app.value.app_id}}.pid --daemonize
 KillMode=process
 User={{app_user}}
 Group={{app_user}}
