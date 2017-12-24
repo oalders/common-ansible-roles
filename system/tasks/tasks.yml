@@ -8,6 +8,7 @@
     - lynx
     - ncdu
     - ntp
+    - perltidy
     - ruby2.3
     - tig
     - tree
