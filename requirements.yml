@@ -3,3 +3,4 @@
 - src: geerlingguy.mysql
 - src: jdauphant.nginx
 - src: jdauphant.ssl-certs
+- src: tersmitten.updatedb
