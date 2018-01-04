@@ -10,12 +10,3 @@
     home: '{{user_home}}'
     name: '{{app_user}}'
     shell: /bin/bash
-    generate_ssh_key: yes
-- copy:
-    dest: '{{user_home}}/.ssh/authorized_keys'
-    group: '{{app_user}}'
-    mode: 0600
-    owner: '{{app_user}}'
-    src: '~/.ssh/id_rsa.pub'
-  name: Copy over pub key
-  when: add_pub_key
