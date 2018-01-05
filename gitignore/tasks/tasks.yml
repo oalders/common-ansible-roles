@@ -2,6 +2,7 @@
 - file:
     dest: '{{app.value.checkout_root}}/.gitignore'
     state: touch
+  become_user: "{{app.value.owner}}"
 - lineinfile:
     line: '{{item.key}}'
     path: '{{app.value.checkout_root}}/.gitignore'
@@ -16,3 +17,4 @@
     bin/carton-exec: '^bin\/carton-exec$'
     seed-cpanfile: '^seed-cpanfile$'
     tidyall.ERR: '^tidyall\.ERR$'
+  become_user: "{{app.value.owner}}"
