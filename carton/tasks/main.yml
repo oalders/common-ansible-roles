@@ -19,7 +19,7 @@
   environment:
     PERL5LIB: '{{user_home}}/perl5/lib/perl5'
   ignore_errors: yes
-- include: tasks.yml
+- import_tasks: tasks.yml
   loop_control:
     loop_var: app
   with_dict: '{{apps}}'

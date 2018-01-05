@@ -1,6 +1,6 @@
 ---
 - become: yes
-  include: tasks/tasks.yml
+  import_tasks: tasks/tasks.yml
   with_dict: '{{apps}}'
   loop_control:
     loop_var: app
