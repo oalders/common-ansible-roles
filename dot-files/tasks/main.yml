@@ -8,7 +8,7 @@
   when: ansible_nodename != 'vagrant'
 - args:
     chdir: '{{user_home}}/dot-files'
-  command: /bin/bash install.sh
+  command: /bin/bash install.sh -s
   environment:
     GOPATH: '{{user_home}}/go'
   name: Install dot files
