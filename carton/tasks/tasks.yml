@@ -4,14 +4,16 @@
     verbosity: 3
 - debug:
     msg: '{{app|pprint }}'
-- file:
+- become: yes
+  file:
     mode: 0744
+    owner: '{{app.value.owner}}'
     path: '{{app.value.checkout_root}}/{{carton_bin_dir}}'
     state: directory
 - name: Copy carton wrapper
   template: 'src=bin/carton.j2 dest="{{app.value.checkout_root}}/{{carton}}" mode=0755'
 - name: Copy carton exec wrapper
-  template: 'src=bin/carton-exec.j2 dest="{{app.value.checkout_root}}/{{carton_exec}}" mode=0755'
+  template: 'src=bin/carton-exec.j2 dest="{{app.value.checkout_root}}/{{carton_exec}}" mode=0755 owner="{{app.value.owner}}" group="{{app.value.group}}"'
 - args:
     chdir: '{{app.value.checkout_root}}'
   command: 'git rm --ignore-unmatch {{item}}'
@@ -22,6 +24,8 @@
     - bin/carton-exec
 - args:
     chdir: '{{ app.value.checkout_root }}'
+  become: yes
+  become_user: '{{app.value.owner}}'
   command: 'cpm install --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile {{item}}'
   environment:
     USE_CPANFILE_SNAPSHOT: '{{use_cpanfile_snapshot}}'
@@ -29,7 +33,9 @@
   name: Install CPAN deps via App::cpm
   when: ansible_processor_cores > 1
   with_items: '{{app.value.cpanfile}}'
-- command: '{{app.value.checkout_root}}/{{carton}} install --cpanfile {{item}} {{carton_deployment}}'
+- become: yes
+  become_user: '{{app.value.owner}}'
+  command: '{{app.value.checkout_root}}/{{carton}} install --cpanfile {{item}} {{app.value.carton_deployment}}'
   ignore_errors: yes
   name: Maybe update cpanfile snapshot or just run a cleanup on production
   with_items: '{{app.value.cpanfile}}'
