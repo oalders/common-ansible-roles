@@ -1,0 +1,4 @@
+---
+- apt_repository:
+    repo: ppa:jonathonf/vim
+    state: present
