@@ -2,4 +2,4 @@
 - include_tasks: tasks.yml
   loop_control:
     loop_var: app
-  with_dict: '{{apps}}'
+  with_items: '{{apps}}'

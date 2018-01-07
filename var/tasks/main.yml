@@ -1,5 +1,5 @@
 ---
 - import_tasks: tasks.yml
-  with_dict: '{{apps}}'
+  with_items: '{{apps}}'
   loop_control:
     loop_var: app
