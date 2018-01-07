@@ -35,7 +35,7 @@
   with_items: '{{app.value.cpanfile}}'
 - become: yes
   become_user: '{{app.value.owner}}'
-  command: '{{app.value.checkout_root}}/{{carton}} install --cpanfile {{item}} {{app.value.carton_deployment}}'
+  command: '{{app.value.checkout_root}}/{{carton}} install --cpanfile {{item}} {{ app.value.carton.deployment | ternary("--deployment","") }}'
   ignore_errors: yes
   name: Maybe update cpanfile snapshot or just run a cleanup on production
   with_items: '{{app.value.cpanfile}}'
