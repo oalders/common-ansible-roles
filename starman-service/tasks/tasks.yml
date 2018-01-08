@@ -1,11 +1,9 @@
 ---
-- name: "Maybe add {{app.value.app_id}}.service files"
+- name: "Maybe add {{app.app_id}}.service files"
   template:
-    dest: '/etc/systemd/system/{{ app.value.app_id }}.service'
+    dest: '/etc/systemd/system/{{ app.app_id }}.service'
     src: starman-service.j2
-  when: app.value.starman is defined
-- name: Maybe reload {{app.value.app_id}}
-  systemd: 'name={{app.value.app_id}} daemon_reload=yes state=restarted enabled=yes'
-  when: app.value.starman is defined
-- debug:
-    var: app
+  when: app.starman is defined
+- name: Maybe reload {{app.app_id}}
+  systemd: 'name={{app.app_id}} daemon_reload=yes state=restarted enabled=yes'
+  when: app.starman is defined
