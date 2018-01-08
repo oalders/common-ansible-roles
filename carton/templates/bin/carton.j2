@@ -1,10 +1,10 @@
 #!/bin/bash
 
-export PERL_CARTON_PATH={{app.value.checkout_root}}/local
+export PERL_CARTON_PATH={{app.checkout_root}}/local
 
-{% for key, value in app.value.carton.env.items() %}
+{% for key, value in app.carton.env.items() %}
 export {{key}}={{value}}
 {% endfor %}
 
-cd {{app.value.checkout_root}}
+cd {{app.checkout_root}}
 /usr/local/bin/carton $@

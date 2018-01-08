@@ -7,15 +7,15 @@
 - become: yes
   file:
     mode: 0744
-    owner: '{{app.value.owner}}'
-    path: '{{app.value.checkout_root}}/{{carton_bin_dir}}'
+    owner: '{{app.owner}}'
+    path: '{{app.checkout_root}}/{{carton_bin_dir}}'
     state: directory
 - name: Copy carton wrapper
-  template: 'src=bin/carton.j2 dest="{{app.value.checkout_root}}/{{carton}}" mode=0755'
+  template: 'src=bin/carton.j2 dest="{{app.checkout_root}}/{{carton}}" mode=0755'
 - name: Copy carton exec wrapper
-  template: 'src=bin/carton-exec.j2 dest="{{app.value.checkout_root}}/{{carton_exec}}" mode=0755 owner="{{app.value.owner}}" group="{{app.value.group}}"'
+  template: 'src=bin/carton-exec.j2 dest="{{app.checkout_root}}/{{carton_exec}}" mode=0755 owner="{{app.owner}}" group="{{app.group}}"'
 - args:
-    chdir: '{{app.value.checkout_root}}'
+    chdir: '{{app.checkout_root}}'
   command: 'git rm --ignore-unmatch {{item}}'
   name: git rm ansible managed files which may have been checked in in the past
   with_items:
@@ -23,19 +23,19 @@
     - bin/carton
     - bin/carton-exec
 - args:
-    chdir: '{{ app.value.checkout_root }}'
+    chdir: '{{ app.checkout_root }}'
   become: yes
-  become_user: '{{app.value.owner}}'
+  become_user: '{{app.owner}}'
   command: 'cpm install --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile {{item}}'
   environment:
     USE_CPANFILE_SNAPSHOT: '{{use_cpanfile_snapshot}}'
   ignore_errors: yes
   name: Install CPAN deps via App::cpm
   when: ansible_processor_cores > 1
-  with_items: '{{app.value.cpanfile}}'
+  with_items: '{{app.cpanfile}}'
 - become: yes
-  become_user: '{{app.value.owner}}'
-  command: '{{app.value.checkout_root}}/{{carton}} install --cpanfile {{item}} {{ app.value.carton.deployment | ternary("--deployment","") }}'
+  become_user: '{{app.owner}}'
+  command: '{{app.checkout_root}}/{{carton}} install --cpanfile {{item}} {{ app.carton.deployment | ternary("--deployment","") }}'
   ignore_errors: yes
   name: Maybe update cpanfile snapshot or just run a cleanup on production
-  with_items: '{{app.value.cpanfile}}'
+  with_items: '{{app.cpanfile}}'
