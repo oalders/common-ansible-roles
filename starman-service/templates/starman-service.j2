@@ -8,8 +8,8 @@ Type=simple
 Restart=always
 ExecStart={{app.checkout_root}}/{{carton_exec | default('bin/carton-exec') }} local/bin/starman {{app.starman.app_path | default('app.psgi') }} --port {{app.starman.port}} --workers {{app.starman.workers}} --error-log {{app.log_dir}}/{{app.starman.error_log | default('starman-error-log') }} --pid {{app.pid_dir}}/{{app.app_id}}.pid --daemonize
 KillMode=process
-User={{app_user}}
-Group={{app_user}}
+User={{app.owner}}
+Group={{app.group}}
 SyslogIdentifier={{app.app_id}}
 PIDFile={{app.pid_dir}}/{{app.app_id}}.pid
 
