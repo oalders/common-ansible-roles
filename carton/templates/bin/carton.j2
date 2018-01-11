@@ -2,9 +2,11 @@
 
 export PERL_CARTON_PATH={{app.checkout_root}}/local
 
-{% for key, value in app.carton.env.items() %}
+{% if app.carton.env is defined %}
+  {% for key, value in app.carton.env.items() %}
 export {{key}}={{value}}
-{% endfor %}
+  {% endfor %}
+{% endif %}
 
 cd {{app.checkout_root}}
 /usr/local/bin/carton $@

@@ -1,8 +1,10 @@
 #!/bin/bash
 
-{% for key, value in app.carton.env.items() %}
+{% if app.carton.env is defined %}
+  {% for key, value in app.carton.env.items() %}
 export {{key}}={{value}}
-{% endfor %}
+  {% endfor %}
+{% endif %}
 
 cd {{app.checkout_root}}
 /usr/local/bin/carton exec -- perl -Ilib {{ app.carton.includes | default('') }} $@
