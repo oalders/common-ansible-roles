@@ -1,0 +1,9 @@
+---
+- name: "Maybe add {{app.app_id}}.service files"
+  template:
+    dest: '/etc/systemd/system/{{ app.app_id }}.service'
+    src: mojo-server-daemon-service.j2
+  when: app.mojo_server_daemon is defined
+- name: Maybe reload {{app.app_id}}
+  systemd: 'name={{app.app_id}} daemon_reload=yes state=restarted enabled=yes'
+  when: app.mojo_server_daemon is defined

@@ -1,0 +1,17 @@
+[Unit]
+Description={{app.app_service_description}}
+After=network.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart={{app.checkout_root}}/{{carton_exec | default('bin/carton-exec') }} {{app.mojo_server_daemon.app_path }} {{app.mojo_server_daemon.prefork | ternary('prefork', '')}} -m {{app.mojo_server_daemon.mode | default('production')}} -l http://*:{{app.mojo_server_daemon.port}}
+KillMode=process
+User={{app.owner}}
+Group={{app.group}}
+SyslogIdentifier={{app.app_id}}
+
+[Install]
+WantedBy=multi-user.target
+
+PIDFile={{app.pid_dir}}/{{app.app_id}}.pid
