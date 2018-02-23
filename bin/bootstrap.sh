@@ -18,3 +18,8 @@ echo "ansible/tasks/roles" >> .gitignore
 pushd bin
 ln -s ../ansible/tasks/roles/common-roles/bin/ansible-galaxy .
 popd
+
+echo "ansible/tasks/roles/geerlingguy.firewall" >> .gitignore
+echo "ansible/tasks/roles/geerlingguy.mysql" >> .gitignore
+echo "ansible/tasks/roles/jdauphant.nginx" >> .gitignore
+echo "ansible/tasks/roles/jdauphant.ssl-certs" >> .gitignore
