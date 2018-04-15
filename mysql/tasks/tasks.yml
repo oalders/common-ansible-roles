@@ -1,5 +1,5 @@
 ---
-- apt: pkg=libmysqlclient-dev state=installed
+- apt: pkg=libmysqlclient-dev state=present
   name: Ensure mysql_config is available for DBD::mysql
 - include_role:
     name: geerlingguy.mysql

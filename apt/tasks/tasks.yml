@@ -4,7 +4,7 @@
 - apt: upgrade=dist autoremove=true
   name: Update all packages to the latest version
 - name: Install apt packages defined in apt_pkgs
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=present
   when: apt_pkgs is defined
   with_items:
     - "{{apt_pkgs}}"

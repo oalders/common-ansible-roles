@@ -1,5 +1,5 @@
 ---
-- apt: 'name={{item}} state=installed'
+- apt: 'name={{item}} state=present'
   name: Install list of packages
   with_items:
     - curl

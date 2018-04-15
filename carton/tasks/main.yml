@@ -1,7 +1,7 @@
 ---
 - debug:
     msg: 'cores: {{ansible_processor_cores}}'
-- apt: 'pkg={{item}} state=installed'
+- apt: 'pkg={{item}} state=present'
   become: yes
   name: 'Install {{item}} from apt'
   with_items:
