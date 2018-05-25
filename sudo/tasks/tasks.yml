@@ -5,4 +5,4 @@
     regexp: SSH_AUTH_SOCK
     state: present
   name: Add ssh agent line to sudoers
-- lineinfile: "dest=/etc/sudoers state=present regexp='^%{{app_user}}' line='%{{app_user}} ALL=(ALL) NOPASSWD: ALL'"
+- lineinfile: "dest=/etc/sudoers state=present regexp='^%{{admin_user}}' line='%{{admin_user}} ALL=(ALL) NOPASSWD: ALL'"
