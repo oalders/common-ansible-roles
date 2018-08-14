@@ -1,0 +1,21 @@
+---
+- name: Ensure monitoring cron dir exists
+  file:
+    path: '{{monitoring.root}}'
+    owner: '{{monitoring.owner}}'
+    group: '{{monitoring.group}}'
+    mode: 0700
+    state: directory
+- name: Copy disk usage cron
+  template:
+    src: disk-usage.sh.j2
+    dest: "{{monitoring.root}}/disk-usage.sh"
+    mode: "0700"
+    owner: "{{monitoring.owner}}"
+    group: "{{monitoring.group}}"
+- name: Set up disk usage cron
+  cron:
+    name: "check disk usage"
+    minute: "5"
+    job: "sh {{monitoring.root}}/disk-usage.sh"
+    user: "{{monitoring.owner}}"
