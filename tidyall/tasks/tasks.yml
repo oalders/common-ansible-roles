@@ -1,17 +1,17 @@
 ---
-- copy: 'src=~/dot-files/dzil/profiles/default/skel/tidyall.ini dest="{{app.value.checkout_root}}/tidyall.ini" force=no'
-- copy: 'src=~/dot-files/dzil/profiles/default/skel/perltidyrc dest="{{app.value.checkout_root}}/perltidyrc" force=no'
+- copy: 'src=~/dot-files/dzil/profiles/default/skel/tidyall.ini dest="{{item.checkout_root}}/tidyall.ini" force=no'
+- copy: 'src=~/dot-files/dzil/profiles/default/skel/perltidyrc dest="{{item.checkout_root}}/perltidyrc" force=no'
 - name: Maybe copy Git hook
   register: result
   stat:
-    path: '{{app.value.checkout_root}}/git'
+    path: '{{item.checkout_root}}/git'
 - copy:
-    dest: '{{app.value.checkout_root}}/'
+    dest: '{{item.checkout_root}}/'
     src: '~/dot-files/dzil/profiles/default/skel/git'
   name: Maybe copy git pre-commit hook
   when: not result.stat.exists
 - args:
-    chdir: '{{app.value.checkout_root}}'
-  command: '/bin/bash {{app.value.checkout_root}}/git/setup.sh'
+    chdir: '{{item.checkout_root}}'
+  command: '/bin/bash {{item.checkout_root}}/git/setup.sh'
   name: Maybe enable pre-commit hook
   when: not result.stat.exists
