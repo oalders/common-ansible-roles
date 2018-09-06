@@ -1,5 +1,3 @@
 ---
-- import_tasks: tasks.yml
+- include_tasks: tasks.yml
   with_items: '{{apps}}'
-  loop_control:
-    loop_var: app
