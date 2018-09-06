@@ -1,8 +1,3 @@
 ---
 - include_role:
     name: geerlingguy.firewall
-    vars:
-      firewall_allowed_tcp_ports:
-        - 22
-        - 80
-        - 443
