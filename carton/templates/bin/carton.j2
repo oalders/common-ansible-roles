@@ -9,4 +9,4 @@ export {{key}}={{value}}
 {% endif %}
 
 cd {{app.checkout_root}}
-/usr/local/bin/carton $@
+{{ app.carton.bin_path | default('/usr/local/bin/carton') }} $@
