@@ -1,17 +1,13 @@
 ---
-- debug:
-    var: 'hostvars[inventory_hostname]'
-    verbosity: 4
-  name: Display all variables/facts known for a host
-- git: repo=https://github.com/oalders/dot-files.git dest=/home/{{user}}/dot-files accept_hostkey=yes recursive=yes track_submodules=no force=yes
-  name: "Check out dot files from github for {{user}}"
+- git: repo=https://github.com/oalders/dot-files.git dest=/home/{{item}}/dot-files accept_hostkey=yes recursive=yes track_submodules=no force=yes
+  name: "Check out dot files from github for {{item}}"
   when: ansible_nodename != 'vagrant'
-  become_user: "{{user}}"
+  become_user: "{{item}}"
 - args:
-    chdir: '/home/{{user}}/dot-files'
+    chdir: '/home/{{item}}/dot-files'
   command: /bin/bash install.sh -s
   environment:
-    GOPATH: '/home/{{user}}/go'
-  name: "Install dot files for {{user}}"
+    GOPATH: '/home/{{item}}/go'
+  name: "Install dot files for {{item}}"
   when: ansible_nodename != 'vagrant'
-  become_user: "{{user}}"
+  become_user: "{{item}}"
