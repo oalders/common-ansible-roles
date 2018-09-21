@@ -1,11 +1,11 @@
 ---
 - file:
-    path: '{{app.log_dir}}'
+    path: '{{app.log_dir | default(app.checkout_root + "/var/log")}}'
     state: directory
   become_user: "{{app.owner}}"
-  name: 'Create log directory at {{app.log_dir}}'
+  name: 'Maybe create log directory for {{app.app_id}}'
 - file:
-    path: '{{app.pid_dir}}'
+    path: '{{app.pid_dir | default(app.checkout_root + "/var/pid")}}'
     state: directory
-  name: 'Create pid directory at {{app.pid_dir}}'
+  name: 'Maybe create pid directory for {{app.app_id}}'
   become_user: "{{app.owner}}"
