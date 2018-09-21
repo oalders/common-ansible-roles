@@ -1,9 +1,7 @@
 ---
 - debug:
-    var: 'hostvars[inventory_hostname]'
-    verbosity: 3
-- debug:
     msg: '{{app|pprint }}'
+    verbosity: 3
 - become: yes
   file:
     mode: 0744
