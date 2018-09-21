@@ -36,17 +36,17 @@
   ignore_errors: yes
   name: Install CPAN deps via App::cpm
   when: ansible_processor_cores > 1
-  with_items: '{{app.cpanfile}}'
+  with_items: app.carton.cpanfile|default(['cpanfile'])
 - become: yes
   become_user: '{{app.owner}}'
   command: '{{app.checkout_root}}/{{carton}} install --cpanfile {{item}} {{ app.carton.deployment | ternary("--deployment","") }}'
   ignore_errors: yes
-  name: Maybe update cpanfile snapshot or just run a cleanup on production
-  with_items: '{{app.cpanfile}}'
+  name:  Maybe update cpanfile snapshot or just run a cleanup on production
+  with_items: "{{app.carton.cpanfile|default(['cpanfile'])}}"
 - args:
     chdir: '{{ app.checkout_root }}'
   become: yes
   become_user: '{{app.owner}}'
-  command: 'git add cpanfile.snapshot && git commit cpanfile.snapshot --no-verify -m "Update cpanfile.snapshot" && git push'
+  shell: 'git add cpanfile.snapshot && git commit -m "Update cpanfile.snapshot" --no-verify cpanfile.snapshot && git push'
   ignore_errors: yes
   name: Maybe commit cpanfile.snapshot changes
