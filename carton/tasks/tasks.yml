@@ -24,6 +24,12 @@
     chdir: '{{ app.checkout_root }}'
   become: yes
   become_user: '{{app.owner}}'
+  command: 'rm -rf cpanfile.snapshot && rm -rf local'
+  when: app.carton.delete_snapshot|default(false)|bool == true
+- args:
+    chdir: '{{ app.checkout_root }}'
+  become: yes
+  become_user: '{{app.owner}}'
   command: 'cpm install --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile {{item}}'
   environment:
     USE_CPANFILE_SNAPSHOT: '{{use_cpanfile_snapshot}}'
@@ -37,3 +43,10 @@
   ignore_errors: yes
   name: Maybe update cpanfile snapshot or just run a cleanup on production
   with_items: '{{app.cpanfile}}'
+- args:
+    chdir: '{{ app.checkout_root }}'
+  become: yes
+  become_user: '{{app.owner}}'
+  command: 'git add cpanfile.snapshot && git commit cpanfile.snapshot --no-verify -m "Update cpanfile.snapshot" && git push'
+  ignore_errors: yes
+  name: Maybe commit cpanfile.snapshot changes
