@@ -1,3 +1,7 @@
 #!/bin/bash
 
-ansible-galaxy install -r ansible/tasks/roles/common-roles/requirements.yml --force -p ansible/tasks/roles
+ansible-galaxy install -r ansible/tasks/roles/common-roles/requirements.yml --force -p ansible/tasks/roles $@
+
+if [ -f ansible/requirements.yml ]; then
+    ansible-galaxy install -r ansible/requirements.yml --force -p ansible/tasks/roles $@
+fi
