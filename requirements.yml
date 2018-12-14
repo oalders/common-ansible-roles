@@ -1,4 +1,5 @@
 ---
+- src: geerlingguy.certbot
 - src: geerlingguy.firewall
 - src: geerlingguy.mysql
 - src: jdauphant.nginx
