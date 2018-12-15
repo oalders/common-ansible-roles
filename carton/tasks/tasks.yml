@@ -35,8 +35,7 @@
     USE_CPANFILE_SNAPSHOT: '{{use_cpanfile_snapshot}}'
   ignore_errors: yes
   name: Install CPAN deps via App::cpm
-  when: ansible_processor_cores > 1
-  with_items: app.carton.cpanfile|default(['cpanfile'])
+  with_items: "{{app.carton.cpanfile}}"
 - become: yes
   become_user: '{{app.owner}}'
   command: '{{app.checkout_root}}/{{carton}} install --cpanfile {{item}} {{ app.carton.deployment | ternary("--deployment","") }}'
