@@ -17,12 +17,14 @@
     - ansible/site.retry
     - bin/carton
     - bin/carton-exec
-- args:
-    chdir: '{{ app.checkout_root }}'
-  become: yes
-  become_user: '{{app.owner}}'
-  command: 'rm -rf cpanfile.snapshot && rm -rf local'
+- become: yes
+  file:
+    path: '{{ app.checkout_root }}/{{ item }}'
+    state: absent
   when: app.carton.delete_snapshot|default(false)|bool == true
+  with_items:
+    - cpanfile.snapshot
+    - local
 - args:
     chdir: '{{ app.checkout_root }}'
   become: yes
