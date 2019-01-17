@@ -1,13 +1,26 @@
 ---
-- git: repo=https://github.com/oalders/dot-files.git dest=/home/{{item}}/dot-files accept_hostkey=yes recursive=yes track_submodules=no force=yes
-  name: "Check out dot files from github for {{item}}"
+- debug:
+    var: "hostvars[inventory_hostname]"
+    verbosity: 4
+  name: Display all variables/facts known for a host
+- apt:
+    pkg:
+      - python-pip
+- git:
+    repo: https://github.com/oalders/dot-files.git
+    dest: "/home/{{user}}/dot-files"
+    accept_hostkey: true
+    recursive: true
+    track_submodules: false
+    force: true
+  name: "Check out dot files from github for {{user}}"
   when: ansible_nodename != 'vagrant'
   become_user: "{{item}}"
 - args:
-    chdir: '/home/{{item}}/dot-files'
+    chdir: "/home/{{user}}/dot-files"
   command: /bin/bash install.sh -s
   environment:
-    GOPATH: '/home/{{item}}/go'
+    GOPATH: "/home/{{user}}/go"
   name: "Install dot files for {{item}}"
   when: ansible_nodename != 'vagrant'
   become_user: "{{item}}"
