@@ -5,6 +5,7 @@
   name: Display all variables/facts known for a host
 - apt:
     pkg:
+      - cpanminus
       - python-pip
 - git:
     repo: https://github.com/oalders/dot-files.git
