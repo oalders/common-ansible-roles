@@ -1,3 +1,3 @@
 ---
-- git: 'repo={{app.repo_url}} dest={{app.checkout_root}} accept_hostkey=yes recursive=yes track_submodules=no'
+- git: 'repo={{app.repo_url}} dest={{app.checkout_root}} accept_hostkey=true recursive=true track_submodules=no'
   name: check out git repository into {{app.checkout_root}}

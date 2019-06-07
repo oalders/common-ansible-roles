@@ -1,13 +1,13 @@
 ---
 - debug:
-    msg: 'cores: {{ansible_processor_cores}}'
-- apt: 'pkg={{item}} state=present'
-  become: yes
-  name: 'Install {{item}} from apt'
+    msg: "cores: {{ansible_processor_cores}}"
+- apt: "pkg={{item}} state=present"
+  become: true
+  name: "Install {{item}} from apt"
   with_items:
     - cpanminus
 - cpanm:
-    name: '{{item}}'
+    name: "{{item}}"
   with_items:
     - Carton
     - App::cpm
@@ -15,11 +15,11 @@
   template: src=common-cpanfile dest="/tmp/common-cpanfile" mode=0600
 - args:
     chdir: /tmp
-  command: 'cpm install --global --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile common-cpanfile'
+  command: "cpm install --global --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile common-cpanfile"
   environment:
-    PERL5LIB: '{{user_home}}/perl5/lib/perl5'
-  ignore_errors: yes
+    PERL5LIB: "{{user_home}}/perl5/lib/perl5"
+  ignore_errors: true
 - include_tasks: tasks.yml
   loop_control:
     loop_var: app
-  with_items: '{{apps}}'
+  with_items: "{{apps}}"

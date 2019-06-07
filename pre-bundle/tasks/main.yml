@@ -16,6 +16,6 @@
   register: diff
 - systemd:
     state: restarted
-    daemon_reload: yes
+    daemon_reload: true
     name: cron
   when: diff.changed

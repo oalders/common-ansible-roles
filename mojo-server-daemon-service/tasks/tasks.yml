@@ -5,5 +5,5 @@
     src: mojo-server-daemon-service.j2
   when: app.mojo_server_daemon is defined
 - name: Maybe reload {{app.app_id}}
-  systemd: 'name={{app.app_id}} daemon_reload=yes state=restarted enabled=yes'
+  systemd: 'name={{app.app_id}} daemon_reload=true state=restarted enabled=true'
   when: app.mojo_server_daemon is defined

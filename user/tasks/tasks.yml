@@ -1,12 +1,12 @@
 ---
 - group:
-    name: '{{admin_user}}'
+    name: "{{admin_user}}"
     state: present
   name: Maybe create group
-- name: 'Maybe create user {{admin_user}} with home dir {{user_home}}'
+- name: "Maybe create user {{admin_user}} with home dir {{user_home}}"
   user:
-    createhome: yes
-    group: '{{admin_user}}'
-    home: '{{user_home}}'
-    name: '{{admin_user}}'
+    createhome: true
+    group: "{{admin_user}}"
+    home: "{{user_home}}"
+    name: "{{admin_user}}"
     shell: /bin/bash
