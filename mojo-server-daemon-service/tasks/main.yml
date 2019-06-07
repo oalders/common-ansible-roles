@@ -1,6 +1,6 @@
 ---
-- become: yes
+- name: "mojo server daemon service"
   include_tasks: tasks/tasks.yml
-  with_items: '{{apps}}'
+  with_items: "{{apps}}"
   loop_control:
     loop_var: app
