@@ -1,18 +1,20 @@
 ---
-- apt: 'name={{item}} state=present'
-  name: Install list of packages
-  with_items:
-    - curl
-    - git
-    - golang
-    - lynx
-    - ncdu
-    - npm
-    - ntp
-    - perltidy
-    - ruby
-    - tig
-    - tree
-    - unzip
+- apt:
+  name: "{{ packages }}"
+  vars:
+    packages:
+      - curl
+      - git
+      - golang
+      - lynx
+      - ncdu
+      - nmap
+      - npm
+      - ntp
+      - perltidy
+      - ruby
+      - tig
+      - tree
+      - unzip
 - include_role:
     name: oefenweb.updatedb
