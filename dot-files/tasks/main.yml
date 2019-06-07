@@ -24,6 +24,6 @@
   command: /bin/bash install.sh -s
   environment:
     GOPATH: "/home/{{user}}/go"
-  name: "Install dot files for {{item}}"
+  name: "Install dot files for {{user}}"
   when: ansible_nodename != 'vagrant'
   become_user: "{{user}}"
