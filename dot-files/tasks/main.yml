@@ -4,6 +4,7 @@
     verbosity: 4
   name: Display all variables/facts known for a host
 - apt:
+    force_apt_get: true
     pkg:
       - cpanminus
       - libssl-dev
