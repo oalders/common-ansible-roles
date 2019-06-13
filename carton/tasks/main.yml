@@ -1,11 +1,10 @@
 ---
-- debug:
-    msg: "cores: {{ansible_processor_cores}}"
-- apt: "pkg={{item}} state=present"
+- apt:
+    pkg:
+      - cpanminus
+    state: present
   become: true
-  name: "Install {{item}} from apt"
-  with_items:
-    - cpanminus
+  name: "Install cpanminus from apt"
 - cpanm:
     name: "{{item}}"
   with_items:
