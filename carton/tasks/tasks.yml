@@ -6,17 +6,33 @@
     path: "{{app.checkout_root}}/{{carton_bin_dir}}"
     state: directory
 - name: Copy carton wrapper
-  template: 'src=bin/carton.j2 dest="{{app.checkout_root}}/{{carton}}" mode=0755'
+  template:
+    dest: "{{app.checkout_root}}/{{carton}}"
+    mode: 0755
+    src: bin/carton.j2
+- name: check if git dir exists
+  stat:
+    path: .git
+  register: git_dir
 - name: Copy carton exec wrapper
-  template: 'src=bin/carton-exec.j2 dest="{{app.checkout_root}}/{{carton_exec}}" mode=0755 owner="{{app.owner}}" group="{{app.group}}"'
+  template:
+    dest: "{{app.checkout_root}}/{{carton_exec}}"
+    group: "{{app.group}}"
+    mode: 0755
+    owner: "{{app.owner}}"
+    src: bin/carton-exec.j2
+  when: git_dir.stat.exists == true
 - args:
     chdir: "{{app.checkout_root}}"
   command: "git rm --ignore-unmatch {{item}}"
   name: git rm ansible managed files which may have been checked in in the past
+  tags:
+    - git-rm
   with_items:
     - ansible/site.retry
     - bin/carton
     - bin/carton-exec
+  when: git_dir.stat.exists == true
 - become: true
   file:
     path: "{{ app.checkout_root }}/{{ item }}"
@@ -29,22 +45,45 @@
     chdir: "{{ app.checkout_root }}"
   become: true
   become_user: "{{app.owner}}"
-  command: "cpm install --mirror https://cpan.metacpan.org --mirror http://CPAN.mirror.rafal.ca/ --workers {{ansible_processor_cores}} --cpanfile {{item}}"
+  command:
+    argv:
+      - cpm
+      - install
+      - --mirror
+      - https://cpan.metacpan.org
+      - --mirror
+      - http://CPAN.mirror.rafal.ca/
+      - --workers
+      - "{{ansible_processor_cores}}"
+      - --cpanfile
+      - "{{item}}"
   environment:
     USE_CPANFILE_SNAPSHOT: "{{use_cpanfile_snapshot}}"
   ignore_errors: true
   name: Install CPAN deps via App::cpm
   with_items: "{{app.carton.cpanfile}}"
+  when: git_dir.stat.exists == true
 - become: true
   become_user: "{{app.owner}}"
-  command: '{{app.checkout_root}}/{{carton}} install --cpanfile {{item}} {{ app.carton.deployment | ternary("--deployment","") }}'
+  command:
+    argv:
+      - "{{app.checkout_root}}/{{carton}}"
+      - install
+      - --cpanfile
+      - "{{item}}"
+      - "{{ app.carton.deployment | ternary('--deployment','') }}"
   ignore_errors: true
   name: Maybe update cpanfile snapshot or just run a cleanup on production
   with_items: "{{app.carton.cpanfile}}"
+  when: git_dir.stat.exists == true
 - args:
     chdir: "{{ app.checkout_root }}"
   become: true
   become_user: "{{app.owner}}"
   ignore_errors: true
   name: Maybe commit cpanfile.snapshot changes
-  shell: git add cpanfile.snapshot && git commit -m "Update cpanfile.snapshot" --no-verify cpanfile.snapshot && git push
+  shell: |
+    git add cpanfile.snapshot
+    git commit -m "Update cpanfile.snapshot" --no-verify cpanfile.snapshot
+    git push
+  when: git_dir.stat.exists == true
