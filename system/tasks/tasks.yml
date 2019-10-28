@@ -1,6 +1,8 @@
 ---
-- apt:
-  name: "{{ packages }}"
+- name: "Install some default apt packages"
+  apt:
+    name: "{{ packages }}"
+    force_apt_get: true
   vars:
     packages:
       - curl
