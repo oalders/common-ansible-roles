@@ -1,6 +1,8 @@
 ---
+- debug:
+    var: user
 - authorized_key:
     key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
     state: present
-    user: '{{admin_user}}'
+    user: "{{user}}"
   name: Set authorized key from file
