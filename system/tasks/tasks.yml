@@ -7,7 +7,6 @@
     packages:
       - curl
       - git
-      - golang
       - lynx
       - ncdu
       - nmap
