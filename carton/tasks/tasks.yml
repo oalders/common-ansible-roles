@@ -12,7 +12,7 @@
     src: bin/carton.j2
 - name: check if git dir exists
   stat:
-    path: .git
+    path: "{{app.checkout_root}}/.git"
   register: git_dir
 - name: Copy carton exec wrapper
   template:
@@ -21,7 +21,6 @@
     mode: 0755
     owner: "{{app.owner}}"
     src: bin/carton-exec.j2
-  when: git_dir.stat.exists == true
 - args:
     chdir: "{{app.checkout_root}}"
   command: "git rm --ignore-unmatch {{item}}"
@@ -58,7 +57,7 @@
       - --cpanfile
       - "{{item}}"
   environment:
-    USE_CPANFILE_SNAPSHOT: "{{use_cpanfile_snapshot}}"
+    USE_CPANFILE_SNAPSHOT: "{{app.carton.use_cpanfile_snapshot}}"
   ignore_errors: true
   name: Install CPAN deps via App::cpm
   with_items: "{{app.carton.cpanfile}}"
