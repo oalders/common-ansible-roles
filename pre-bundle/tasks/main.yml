@@ -10,6 +10,8 @@
 - include_role:
     name: common-roles/ssl-certs
 - name: set server time zone
+  become: true
+  tags: time_zone
   timezone:
     name: '{{server_time_zone}}'
   when: server_time_zone is defined
