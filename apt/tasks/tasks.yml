@@ -1,5 +1,8 @@
 ---
-- apt: update_cache=true cache_valid_time=3600
+- apt:
+    cache_valid_time: 3600
+    name: aptitude
+    update_cache: true
   name: Run the equivalent of "apt-get update" as a separate step
 - apt: upgrade=dist autoremove=true
   name: Update all packages to the latest version
