@@ -9,6 +9,7 @@
       - cpanminus
       - libssl-dev
       - python3-pip
+  become: true
 - git:
     repo: https://github.com/oalders/dot-files.git
     dest: "/home/{{user}}/dot-files"
