@@ -3,4 +3,4 @@
 eval `ssh-agent -s`
 ssh-add ~/.ssh/id_rsa
 
-ANSIBLE_CONFIG=ansible/config.cfg ansible-playbook -s ansible/site.yml -i ansible/hosts --limit foo:bar $@
+ANSIBLE_CONFIG=ansible/config.cfg ansible-playbook ansible/site.yml -i ansible/hosts --limit foo:bar $@
