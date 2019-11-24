@@ -26,11 +26,10 @@
       - --mirror
       - https://cpan.metacpan.org
       - --mirror
-      - http://CPAN.mirror.rafal.ca/
-      - --workers
       - "{{ansible_processor_cores}}"
       - --cpanfile
       - common-cpanfile
+      - --show-build-log-on-failure
   environment:
     PERL5LIB: "{{user_home}}/perl5/lib/perl5"
   ignore_errors: true

@@ -51,11 +51,10 @@
       - --mirror
       - https://cpan.metacpan.org
       - --mirror
-      - http://CPAN.mirror.rafal.ca/
-      - --workers
       - "{{ansible_processor_cores}}"
       - --cpanfile
       - "{{item}}"
+      - --show-build-log-on-failure
   environment:
     USE_CPANFILE_SNAPSHOT: "{{app.carton.use_cpanfile_snapshot}}"
   ignore_errors: true
