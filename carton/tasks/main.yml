@@ -25,7 +25,7 @@
       - --global
       - --mirror
       - https://cpan.metacpan.org
-      - --mirror
+      - --workers
       - "{{ansible_processor_cores}}"
       - --cpanfile
       - common-cpanfile
