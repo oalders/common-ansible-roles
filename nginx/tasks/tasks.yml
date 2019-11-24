@@ -3,4 +3,4 @@
     path: /etc/nginx/sites-available/default
     state: absent
 - include_role:
-    name: jdauphant.nginx
+    name: geerlingguy.nginx

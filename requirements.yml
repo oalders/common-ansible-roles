@@ -2,6 +2,6 @@
 - src: geerlingguy.certbot
 - src: geerlingguy.firewall
 - src: geerlingguy.mysql
-- src: jdauphant.nginx
+- src: geerlingguy.nginx
 - src: jdauphant.ssl-certs
 - src: oefenweb.updatedb
