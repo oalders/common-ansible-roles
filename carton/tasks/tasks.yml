@@ -40,6 +40,8 @@
   with_items:
     - cpanfile.snapshot
     - local
+- debug:
+    msg: "Carton for {{app.app_id}} using {{ansible_processor_cores}} workers"
 - args:
     chdir: "{{ app.checkout_root }}"
   become: true
