@@ -1,9 +1,9 @@
 #!/bin/bash
 
 {% if app.carton.env is defined %}
-  {% for key, value in app.carton.env.items() %}
+{% for key, value in app.carton.env.items() %}
 export {{key}}={{value}}
-  {% endfor %}
+{% endfor %}
 {% endif %}
 
 cd {{app.checkout_root}}
