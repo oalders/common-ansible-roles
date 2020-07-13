@@ -1,4 +1,5 @@
 ---
+# set mysql_python_package_debian: python3-mysqldb in vars if package is not found
 - apt: pkg=libmysqlclient-dev state=present
   name: Ensure mysql_config is available for DBD::mysql
 - include_role:
