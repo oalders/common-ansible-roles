@@ -22,7 +22,7 @@
   become_user: "{{user}}"
 - args:
     chdir: "/home/{{user}}/dot-files"
-  command: /bin/bash install.sh -s
+  command: /bin/bash minimal-install.sh
   environment:
     GOPATH: "/home/{{user}}/go"
   name: "Install dot files for {{user}}"
