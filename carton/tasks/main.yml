@@ -10,29 +10,6 @@
   with_items:
     - Carton
     - App::cpm
-- name: Copy common-cpanfile
-  template:
-    dest: /tmp/common-cpanfile
-    mode: 0600
-    src: common-cpanfile
-- name: "cpm install"
-  args:
-    chdir: /tmp
-  command:
-    argv:
-      - cpm
-      - install
-      - --global
-      - --mirror
-      - https://cpan.metacpan.org
-      - --workers
-      - "{{ansible_processor_cores}}"
-      - --cpanfile
-      - common-cpanfile
-      - --show-build-log-on-failure
-  environment:
-    PERL5LIB: "{{user_home}}/perl5/lib/perl5"
-  ignore_errors: true
 - include_tasks: tasks.yml
   loop_control:
     loop_var: app
