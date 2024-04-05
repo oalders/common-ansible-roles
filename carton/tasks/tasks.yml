@@ -22,17 +22,6 @@
     mode: 0755
     owner: "{{app.owner}}"
     src: bin/carton-exec.j2
-- args:
-    chdir: "{{app.checkout_root}}"
-  command: "git rm --ignore-unmatch {{item}}"
-  name: git rm ansible managed files which may have been checked in in the past
-  tags:
-    - git-rm
-  with_items:
-    - ansible/site.retry
-    - bin/carton
-    - bin/carton-exec
-  when: git_dir.stat.exists == true
 - become: true
   file:
     path: "{{ app.checkout_root }}/{{ item }}"
