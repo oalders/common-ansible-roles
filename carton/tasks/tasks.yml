@@ -9,6 +9,7 @@
   template:
     dest: "{{app.checkout_root}}/{{carton}}"
     mode: 0755
+    owner: "{{app.owner}}"
     src: bin/carton.j2
 - name: check if git dir exists
   stat:
