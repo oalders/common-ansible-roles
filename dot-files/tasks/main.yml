@@ -6,6 +6,7 @@
 - apt:
     force_apt_get: true
     pkg:
+      - acl
       - cpanminus
       - libssl-dev
       - python3-pip
